@@ -5,14 +5,12 @@
     <title>Malteada Kawaii - Canvas 2D</title>
     <link rel="icon" type="ICO/png" href="img/ICO.png">
     
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<!-- NAVBAR -->
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <span class="navbar-brand mb-0 h1">
@@ -22,24 +20,21 @@
 </nav>
 
 <div class="container mt-5">
-    <div class="row">
+    <div class="row align-items-top">
         
-        <!-- CANVAS -->
         <div class="col-md-6 text-center">
             <h4>Dibujo por Programación</h4>
-            <canvas id="miCanvas" width="400" height="500"></canvas>
+            <canvas id="miCanvas" width="400" height="500" style="border: 1px solid #ddd; border-radius: 8px;"></canvas>
         </div>
 
-        <!-- IMAGEN ORIGINAL -->
         <div class="col-md-6 text-center">
             <h4>Imagen Original</h4>
-            <img src="img/favicon.png" class="img-fluid">
+            <img src="img/favicon.png" style="width: 400px; height: 500px; object-fit: cover; border-radius: 8px;">
         </div>
 
     </div>
 </div>
 
-<!-- FOOTER -->
 <footer class="bg-dark text-white text-center p-3 mt-5">
     <p>Michelle Pacheco - Ingeniería en Sistemas - 2026</p>
 </footer>

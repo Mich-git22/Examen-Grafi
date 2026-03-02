@@ -1,5 +1,4 @@
-/* 
----------------------------------------------------------
+/* ---------------------------------------------------------
 Aplicación: Malteada Kawaii
 Autor: Michelle Pacheco
 Materia: Graficación por Computadora
@@ -48,23 +47,48 @@ ctx.fillStyle="rgba(0,0,0,0.15)";
 ctx.fill();
 
 /* =========================
-   VASO MÁS SIMÉTRICO
+   VASO (EFECTO DOBLE BORDE CRISTALINO)
 ========================= */
 ctx.beginPath();
 ctx.moveTo(120,165);
-ctx.bezierCurveTo(95,300,120,390,200,430);
-ctx.bezierCurveTo(280,390,305,300,280,165);
+ctx.bezierCurveTo(95,300,120,430,200,430);
+ctx.bezierCurveTo(280,430,305,300,280,165);
 ctx.closePath();
-ctx.fillStyle="#bdeef5";
+ctx.fillStyle="#bdeef5"; 
 ctx.fill();
 ctx.stroke();
+
+ctx.beginPath();
+ctx.moveTo(135,170);
+ctx.bezierCurveTo(115,300,140,415,200,415);
+ctx.bezierCurveTo(260,415,285,300,265,170);
+ctx.strokeStyle="rgba(110, 200, 220, 0.5)"; 
+ctx.lineWidth = 4;
+ctx.stroke();
+
+ctx.strokeStyle="black";
+ctx.lineWidth = 6;
 
 /* BORDE SUPERIOR */
 ctx.beginPath();
 ctx.ellipse(200,165,85,22,0,0,Math.PI*2);
-ctx.fillStyle="#a8e6ef";
+ctx.fillStyle="#a8e6ef"; 
 ctx.fill();
 ctx.stroke();
+
+/* =========================
+   LÍQUIDO ROSA
+========================= */
+ctx.save();
+ctx.beginPath();
+ctx.moveTo(135, 215); 
+ctx.bezierCurveTo(115, 300, 140, 415, 200, 415); 
+ctx.bezierCurveTo(260, 415, 285, 300, 265, 215); 
+ctx.bezierCurveTo(230, 235, 170, 235, 135, 215);
+ctx.closePath();
+ctx.fillStyle = "#ffcced"; 
+ctx.fill();
+ctx.restore();
 
 /* =========================
    BRILLO CRISTAL
@@ -76,24 +100,12 @@ ctx.fillStyle="white";
 ctx.fill();
 ctx.globalAlpha = 1;
 
-/* =========================
-   LÍQUIDO MÁS ORGÁNICO
-========================= */
-ctx.beginPath();
-ctx.moveTo(135,225);
-ctx.bezierCurveTo(165,260,235,260,265,225);
-ctx.lineTo(250,390);
-ctx.bezierCurveTo(200,410,150,390,150,390);
-ctx.closePath();
-ctx.fillStyle="#f8b6cc";
-ctx.fill();
-
 /* BURBUJAS */
 [
- {x:160,y:360,r:12},
- {x:200,y:345,r:8},
- {x:240,y:370,r:14},
- {x:180,y:385,r:6}
+ {x:175,y:380,r:8},
+ {x:200,y:400,r:11},
+ {x:235,y:395,r:10},
+ {x:185,y:345,r:5}
 ].forEach(p=>{
     ctx.beginPath();
     ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
@@ -102,43 +114,47 @@ ctx.fill();
 });
 
 /* =========================
-   CARA MÁS KAWAII
+   CARA KAWAII (AJUSTADA)
 ========================= */
 function ojo(x){
     ctx.beginPath();
-    ctx.arc(x,300,22,0,Math.PI*2);
+    ctx.arc(x,315,22,0,Math.PI*2); // Bajamos un poco los ojos
     ctx.fillStyle="black";
     ctx.fill();
 
     ctx.beginPath();
-    ctx.arc(x-7,290,8,0,Math.PI*2);
+    ctx.arc(x-7,305,8,0,Math.PI*2);
     ctx.fillStyle="white";
     ctx.fill();
 
     ctx.beginPath();
-    ctx.arc(x+6,310,5,0,Math.PI*2);
+    ctx.arc(x+6,325,5,0,Math.PI*2);
     ctx.fillStyle="white";
     ctx.fill();
 }
-ojo(170);
-ojo(230);
+ojo(170); // Ojo izquierdo
+ojo(230); // Ojo derecho
 
-/* BOCA MÁS CURVA */
-ctx.lineWidth=5;
+/* BOCA TIPO "W" (IGUAL A LA ORIGINAL) */
+ctx.lineWidth = 4;
+// Lado izquierdo de la boca
 ctx.beginPath();
-ctx.moveTo(185,318);
-ctx.quadraticCurveTo(200,335,215,318);
+ctx.arc(193, 325, 7, 0, Math.PI); 
+ctx.stroke();
+// Lado derecho de la boca
+ctx.beginPath();
+ctx.arc(207, 325, 7, 0, Math.PI);
 ctx.stroke();
 
 /* MEJILLAS */
 ctx.beginPath();
-ctx.arc(145,315,12,0,Math.PI*2);
-ctx.arc(255,315,12,0,Math.PI*2);
+ctx.arc(140,335,12,0,Math.PI*2);
+ctx.arc(260,335,12,0,Math.PI*2);
 ctx.fillStyle="#ff8fab";
 ctx.fill();
 
 /* =========================
-   CREMA MÁS ESPONJOSA
+   CREMA
 ========================= */
 let capas=[70,50,35];
 capas.forEach((r,i)=>{
@@ -149,7 +165,7 @@ capas.forEach((r,i)=>{
     ctx.stroke();
 });
 
-/* PICO MÁS DEFINIDO */
+/* PICO DE CREMA */
 ctx.beginPath();
 ctx.moveTo(200,90);
 ctx.quadraticCurveTo(225,120,175,120);
@@ -157,136 +173,95 @@ ctx.fill();
 ctx.stroke();
 
 /* =========================
-   FRESA (MÁS GRANDE Y A LA IZQUIERDA)
+   FRESA GRANDE
 ========================= */
 ctx.save();
-
-// 1. Posición: Movida más a la izquierda (190) y un poco más abajo (145)
 ctx.translate(140, 145); 
-ctx.rotate(-0.25); // Inclinación natural
-
-// 2. Cuerpo de la Fresa (Escalada para que sea más grande)
+ctx.rotate(-0.25);
 ctx.beginPath();
 ctx.moveTo(0, 0);
-// Curvas de Bezier ajustadas para una forma más ancha y grande
-ctx.bezierCurveTo(-25, -10, -35, 30, 0, 50); // Lado izquierdo
-ctx.bezierCurveTo(35, 30, 25, -10, 0, 0);    // Lado derecho
+ctx.bezierCurveTo(-25, -10, -35, 30, 0, 50); 
+ctx.bezierCurveTo(35, 30, 25, -10, 0, 0); 
 ctx.fillStyle = "#ff5e5e"; 
 ctx.fill();
 ctx.strokeStyle = "black";
-ctx.lineWidth = 2.5; // Borde un poco más grueso por el tamaño
+ctx.lineWidth = 2.5;
 ctx.stroke();
 
-/* =========================
-   HOJAS DE LA FRESA (SÉPALOS)
-========================= */
-ctx.save();
-
-// Color verde suave y borde definido
+// Hojas Fresa
 ctx.fillStyle = "#4ade80";
-ctx.strokeStyle = "black";
-ctx.lineWidth = 2;
-
-// Dibujamos 4 hojas para que se vea más tupido como el original
 const angulosHojas = [-0.8, -0.3, 0.3, 0.8];
-
 angulosHojas.forEach(angulo => {
     ctx.save();
     ctx.rotate(angulo);
-    
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    // Crea una forma de hoja puntiaguda hacia arriba
     ctx.quadraticCurveTo(-8, -15, 0, -22); 
     ctx.quadraticCurveTo(8, -15, 0, 0);
-    
     ctx.fill();
     ctx.stroke();
     ctx.restore();
 });
 
-// Pequeño círculo central para unir las hojas
-ctx.beginPath();
-ctx.arc(0, -2, 4, 0, Math.PI * 2);
-ctx.fill();
-ctx.stroke();
-
-ctx.restore();
-
-// 4. Semillas (Puntitos blancos) - Distribuidas en el área más grande
+// Semillas
 ctx.fillStyle = "white";
-const semillas = [
-    {x: -8, y: 15}, {x: 8, y: 15}, 
-    {x: 0, y: 25}, {x: -12, y: 32}, 
-    {x: 12, y: 32}, {x: 0, y: 40}
-];
-
-semillas.forEach(p => {
+[{x:-8,y:15},{x:8,y:15},{x:0,y:25},{x:-12,y:32}].forEach(p => {
     ctx.beginPath();
     ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
     ctx.fill();
 });
-
 ctx.restore();
+
 /* =========================
-   ESTRELLA (POR ENCIMA DEL POPOTE)
+   POPOTE
 ========================= */
 ctx.save();
+ctx.translate(200, 170); 
+ctx.rotate(0.3); 
+ctx.fillStyle = "white";
+ctx.strokeStyle = "black";
+ctx.lineWidth = 2;
+ctx.beginPath();
+ctx.rect(0, -145, 12, 145);
+ctx.fill();
+ctx.stroke();
 
-// 1. Posición: Centrada para que tape parte del popote y la crema
+ctx.fillStyle = "#ffd60a";
+for (let i = 0; i < 7; i++) {
+    let yOffset = -20 - (i * 20);
+    ctx.beginPath();
+    ctx.moveTo(0, yOffset);
+    ctx.lineTo(12, yOffset - 10);
+    ctx.lineTo(12, yOffset - 3);
+    ctx.lineTo(0, yOffset + 7);
+    ctx.closePath();
+    ctx.fill();
+}
+ctx.restore();
+
+/* =========================
+   ESTRELLA
+========================= */
+ctx.save();
 ctx.translate(200, 155); 
 ctx.rotate(-0.1); 
-
-// 2. Dibujo de la Estrella Grande
 ctx.beginPath();
-const puntas = 5;
-const radioExterior = 25; // Tamaño aumentado
-const radioInterior = 12;
-
-for (let i = 0; i < puntas * 2; i++) {
-    let r = (i % 2 === 0) ? radioExterior : radioInterior;
-    let angulo = (Math.PI / puntas) * i;
-    
-    let x = r * Math.sin(angulo);
-    let y = r * -Math.cos(angulo);
-    
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
+for (let i = 0; i < 10; i++) {
+    let r = (i % 2 === 0) ? 25 : 12;
+    let a = (Math.PI / 5) * i;
+    ctx.lineTo(r * Math.sin(a), r * -Math.cos(a));
 }
 ctx.closePath();
-
-// 3. Estilo Original
-ctx.fillStyle = "#ffe066"; // Amarillo brillante
+ctx.fillStyle = "#ffe066";
 ctx.fill();
 ctx.strokeStyle = "black";
 ctx.lineWidth = 2.5;
-ctx.lineJoin = "round"; // Puntas suaves estilo Kawaii
+ctx.lineJoin = "round";
 ctx.stroke();
-
-// 4. Brillo blanco en la punta superior
-ctx.beginPath();
-ctx.fillStyle = "white";
-ctx.arc(-6, -10, 4, 0, Math.PI * 2);
-ctx.fill();
-
 ctx.restore();
-// 3. Estilo: Amarillo brillante con borde negro
-ctx.fillStyle = "#ffe066"; // Amarillo suave original
-ctx.fill();
-ctx.strokeStyle = "black";
-ctx.lineWidth = 2.5;
-ctx.lineJoin = "round"; // Puntas redondeadas para estilo Kawaii
-ctx.stroke();
 
-// 4. Brillo pequeño (opcional, para que resalte)
-ctx.beginPath();
-ctx.fillStyle = "white";
-ctx.arc(-5, -8, 3, 0, Math.PI * 2);
-ctx.fill();
-
-ctx.restore();
 /* =========================
-   ARÁNDANO MÁS PROFUNDO
+   ARÁNDANO
 ========================= */
 ctx.beginPath();
 ctx.arc(240,170,12,0,Math.PI*2);
@@ -294,48 +269,8 @@ ctx.fillStyle="#6a4c93";
 ctx.fill();
 ctx.stroke();
 
-ctx.beginPath();
-ctx.arc(240,165,5,0,Math.PI*2);
-ctx.fillStyle="white";
-ctx.fill();
-
 /* =========================
-   POPOTE DENTRO DE LA CREMA (CORRECTO)
-========================= */
-ctx.save();
-
-/* 1. Posición: Ajustada para que salga desde la derecha de la crema */
-ctx.translate(200, 170); 
-
-/* 2. Inclinación: Hacia la derecha (0.3) para igualar la imagen original */
-ctx.rotate(0.3); 
-
-/* 3. Cuerpo: Más delgado (12px) y largo como en el dibujo original */
-ctx.fillStyle = "white";
-ctx.strokeStyle = "black";
-ctx.lineWidth = 2;
-ctx.beginPath();
-ctx.rect(0, -145, 12, 145); // Dibujado hacia arriba
-ctx.fill();
-ctx.stroke();
-
-/* 4. Franjas: Diagonales estilo caramelo (idéntico al original) */
-ctx.fillStyle = "#ffd60a";
-for (let i = 0; i < 7; i++) {
-    let yOffset = -20 - (i * 20);
-    ctx.beginPath();
-    ctx.moveTo(0, yOffset);           // Lado izquierdo
-    ctx.lineTo(12, yOffset - 10);     // Sube en diagonal al lado derecho
-    ctx.lineTo(12, yOffset - 3);      // Baja un poco en el derecho
-    ctx.lineTo(0, yOffset + 7);       // Baja al punto de inicio izquierdo
-    ctx.closePath();
-    ctx.fill();
-}
-
-ctx.restore();
-
-/* =========================
-   CONFETI MÁS ORGANIZADO
+   CONFETI Y BRILLO FINAL
 ========================= */
 let colores=["#ff8fab","#90dbf4","#fcd34d","#cdb4db","#a0e7e5"];
 for(let i=0;i<12;i++){
@@ -345,7 +280,6 @@ for(let i=0;i<12;i++){
     ctx.fill();
 }
 
-/* BRILLO FINAL */
 ctx.beginPath();
 ctx.arc(360,455,14,0,Math.PI*2);
 ctx.fillStyle="rgba(255,255,255,0.6)";
