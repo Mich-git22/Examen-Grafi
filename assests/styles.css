@@ -1,0 +1,12 @@
+body {
+    background-color: #e3f2fd;
+}
+
+canvas {
+    border: 2px solid #333;
+    background-color: #b3e5fc;
+}
+
+h4 {
+    margin-bottom: 20px;
+}
