@@ -1,6 +1,6 @@
 /* 
 ---------------------------------------------------------
-Aplicación: Malteada Kawaii - Versión Final Mejorada
+Aplicación: Malteada Kawaii
 Autor: Michelle Pacheco
 Materia: Graficación por Computadora
 Fecha: 2026
@@ -157,78 +157,134 @@ ctx.fill();
 ctx.stroke();
 
 /* =========================
-   FRESA (AJUSTADA A IMAGEN ORIGINAL)
+   FRESA (MÁS GRANDE Y A LA IZQUIERDA)
 ========================= */
 ctx.save();
 
-// 1. Posición y Rotación: Un poco inclinada a la izquierda
-ctx.translate(210, 130); 
-ctx.rotate(-0.2);
+// 1. Posición: Movida más a la izquierda (190) y un poco más abajo (145)
+ctx.translate(140, 145); 
+ctx.rotate(-0.25); // Inclinación natural
 
-// 2. Cuerpo de la Fresa (Forma de gota/corazón)
+// 2. Cuerpo de la Fresa (Escalada para que sea más grande)
 ctx.beginPath();
 ctx.moveTo(0, 0);
-ctx.bezierCurveTo(-15, -5, -25, 20, 0, 35); // Lado izquierdo
-ctx.bezierCurveTo(25, 20, 15, -5, 0, 0);    // Lado derecho
-ctx.fillStyle = "#ff5e5e"; // Rojo fresa
+// Curvas de Bezier ajustadas para una forma más ancha y grande
+ctx.bezierCurveTo(-25, -10, -35, 30, 0, 50); // Lado izquierdo
+ctx.bezierCurveTo(35, 30, 25, -10, 0, 0);    // Lado derecho
+ctx.fillStyle = "#ff5e5e"; 
 ctx.fill();
 ctx.strokeStyle = "black";
-ctx.lineWidth = 2;
+ctx.lineWidth = 2.5; // Borde un poco más grueso por el tamaño
 ctx.stroke();
 
-// 3. Hojas Verdes (Sépalos)
-ctx.fillStyle = "#4ade80"; // Verde claro
-for(let i = 0; i < 3; i++) {
+/* =========================
+   HOJAS DE LA FRESA (SÉPALOS)
+========================= */
+ctx.save();
+
+// Color verde suave y borde definido
+ctx.fillStyle = "#4ade80";
+ctx.strokeStyle = "black";
+ctx.lineWidth = 2;
+
+// Dibujamos 4 hojas para que se vea más tupido como el original
+const angulosHojas = [-0.8, -0.3, 0.3, 0.8];
+
+angulosHojas.forEach(angulo => {
     ctx.save();
-    ctx.rotate((i - 1) * 0.5);
+    ctx.rotate(angulo);
+    
     ctx.beginPath();
-    ctx.ellipse(0, 0, 5, 10, 0, 0, Math.PI * 2);
+    ctx.moveTo(0, 0);
+    // Crea una forma de hoja puntiaguda hacia arriba
+    ctx.quadraticCurveTo(-8, -15, 0, -22); 
+    ctx.quadraticCurveTo(8, -15, 0, 0);
+    
     ctx.fill();
     ctx.stroke();
     ctx.restore();
-}
+});
 
-// 4. Semillas (Puntitos blancos)
+// Pequeño círculo central para unir las hojas
+ctx.beginPath();
+ctx.arc(0, -2, 4, 0, Math.PI * 2);
+ctx.fill();
+ctx.stroke();
+
+ctx.restore();
+
+// 4. Semillas (Puntitos blancos) - Distribuidas en el área más grande
 ctx.fillStyle = "white";
-const puntos = [
-    {x: -5, y: 10}, {x: 5, y: 10}, 
-    {x: 0, y: 18}, {x: -7, y: 22}, 
-    {x: 7, y: 22}, {x: 0, y: 28}
+const semillas = [
+    {x: -8, y: 15}, {x: 8, y: 15}, 
+    {x: 0, y: 25}, {x: -12, y: 32}, 
+    {x: 12, y: 32}, {x: 0, y: 40}
 ];
 
-puntos.forEach(p => {
+semillas.forEach(p => {
     ctx.beginPath();
-    ctx.arc(p.x, p.y, 1.5, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
     ctx.fill();
 });
 
 ctx.restore();
 /* =========================
-   ESTRELLA
+   ESTRELLA (POR ENCIMA DEL POPOTE)
 ========================= */
-function estrella(cx,cy){
-    ctx.save();
-    ctx.translate(cx,cy);
-    ctx.rotate(0.4);
-    let spikes=5, outer=16, inner=8;
-    let rot=Math.PI/2*3;
-    let step=Math.PI/spikes;
-    ctx.beginPath();
-    ctx.moveTo(0,-outer);
-    for(let i=0;i<spikes;i++){
-        ctx.lineTo(Math.cos(rot)*outer,Math.sin(rot)*outer);
-        rot+=step;
-        ctx.lineTo(Math.cos(rot)*inner,Math.sin(rot)*inner);
-        rot+=step;
-    }
-    ctx.closePath();
-    ctx.fillStyle="#ffe066";
-    ctx.fill();
-    ctx.stroke();
-    ctx.restore();
-}
-estrella(200,185);
+ctx.save();
 
+// 1. Posición: Centrada para que tape parte del popote y la crema
+ctx.translate(200, 155); 
+ctx.rotate(-0.1); 
+
+// 2. Dibujo de la Estrella Grande
+ctx.beginPath();
+const puntas = 5;
+const radioExterior = 25; // Tamaño aumentado
+const radioInterior = 12;
+
+for (let i = 0; i < puntas * 2; i++) {
+    let r = (i % 2 === 0) ? radioExterior : radioInterior;
+    let angulo = (Math.PI / puntas) * i;
+    
+    let x = r * Math.sin(angulo);
+    let y = r * -Math.cos(angulo);
+    
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+}
+ctx.closePath();
+
+// 3. Estilo Original
+ctx.fillStyle = "#ffe066"; // Amarillo brillante
+ctx.fill();
+ctx.strokeStyle = "black";
+ctx.lineWidth = 2.5;
+ctx.lineJoin = "round"; // Puntas suaves estilo Kawaii
+ctx.stroke();
+
+// 4. Brillo blanco en la punta superior
+ctx.beginPath();
+ctx.fillStyle = "white";
+ctx.arc(-6, -10, 4, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.restore();
+// 3. Estilo: Amarillo brillante con borde negro
+ctx.fillStyle = "#ffe066"; // Amarillo suave original
+ctx.fill();
+ctx.strokeStyle = "black";
+ctx.lineWidth = 2.5;
+ctx.lineJoin = "round"; // Puntas redondeadas para estilo Kawaii
+ctx.stroke();
+
+// 4. Brillo pequeño (opcional, para que resalte)
+ctx.beginPath();
+ctx.fillStyle = "white";
+ctx.arc(-5, -8, 3, 0, Math.PI * 2);
+ctx.fill();
+
+ctx.restore();
 /* =========================
    ARÁNDANO MÁS PROFUNDO
 ========================= */
