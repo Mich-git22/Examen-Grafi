@@ -1,12 +1,9 @@
 body {
-    background-color: #e3f2fd;
+    background-color: #e6dff5;
 }
 
 canvas {
-    border: 2px solid #333;
-    background-color: #b3e5fc;
-}
-
-h4 {
-    margin-bottom: 20px;
+    background-color: #dcd3f2;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
 }

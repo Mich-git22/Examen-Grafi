@@ -1,26 +1,20 @@
-# 🎨 Proyecto Canvas 2D - Torre Paisaje
+# Malteada Kawaii - Canvas 2D
 
-## 📌 Descripción
-Aplicación desarrollada con HTML, CSS, JavaScript y Bootstrap que dibuja una torre estilo Eiffel utilizando la API Canvas 2D.
+## Descripción
+Proyecto realizado para el examen del Tema 1: Introducción a la Graficación por Computadora.
 
-## 👩‍💻 Autora
-Michelle Pacheco  
-Ingeniería en Sistemas  
+La aplicación dibuja una malteada estilo kawaii utilizando figuras básicas con la API Canvas 2D.
 
-## 🛠 Tecnologías utilizadas
+## Tecnologías utilizadas
 - HTML5
 - CSS3
 - JavaScript
 - Bootstrap 5
-- API Canvas 2D
 
-## 📂 Estructura
-- assets/
-- css/
-- js/
-- img/
-- index.html
-- README.md
+## Estructura del proyecto
+(agrega aquí la estructura)
 
-## 🌐 Github Pages
-El proyecto fue publicado mediante Github Pages.
+## Autor
+Michelle Pacheco
+Ingeniería en Sistemas
+2026

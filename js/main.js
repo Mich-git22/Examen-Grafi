@@ -1,128 +1,125 @@
-/**
- * ======================================================
- * Aplicación: Dibujo Torre Paisaje con Canvas 2D
- * Materia: Graficación por Computadora
- * Alumna: Michelle Pacheco
- * Fecha: 2026
- * Descripción:
- * Dibujo de una torre estilo Eiffel con paisaje,
- * utilizando más de 30 figuras básicas de Canvas.
- * ======================================================
- */
+/*
+---------------------------------------------------------
+Aplicación: Malteada Kawaii con Canvas 2D
+Autor: Michelle Pacheco
+Materia: Graficación por Computadora
+Fecha: 2026
+Descripción:
+Dibujo generado mediante figuras básicas utilizando
+la API Canvas 2D.
+---------------------------------------------------------
+*/
 
-window.onload = function() {
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-
-    dibujarCielo(ctx);
-    dibujarSol(ctx);
-    dibujarNubes(ctx);
-    dibujarSuelo(ctx);
-    dibujarRio(ctx);
-    dibujarTorre(ctx);
-};
+const canvas = document.getElementById("miCanvas");
+const ctx = canvas.getContext("2d");
 
 /* =========================
-   FONDO
+   FUNCIONES GENERALES
 ========================= */
 
-function dibujarCielo(ctx) {
-    ctx.fillStyle = "#b3e5fc";
-    ctx.fillRect(0, 0, 500, 600);
-}
-
-function dibujarSuelo(ctx) {
-    ctx.fillStyle = "#66bb6a";
-    ctx.fillRect(0, 500, 500, 100);
-}
-
-function dibujarRio(ctx) {
-    ctx.fillStyle = "#2196f3";
+// Dibujar círculo
+function dibujarCirculo(x, y, radio, color) {
     ctx.beginPath();
-    ctx.moveTo(200, 500);
-    ctx.lineTo(300, 500);
-    ctx.lineTo(270, 600);
-    ctx.lineTo(230, 600);
-    ctx.closePath();
+    ctx.arc(x, y, radio, 0, Math.PI * 2);
+    ctx.fillStyle = color;
     ctx.fill();
 }
 
-/* =========================
-   SOL Y NUBES
-========================= */
-
-function dibujarSol(ctx) {
-    ctx.fillStyle = "#ffca28";
-    ctx.beginPath();
-    ctx.arc(100, 100, 40, 0, Math.PI * 2);
-    ctx.fill();
+// Dibujar rectángulo
+function dibujarRect(x, y, w, h, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, w, h);
 }
 
-function dibujarNubes(ctx) {
-    ctx.fillStyle = "white";
+// Dibujar estrella
+function dibujarEstrella(cx, cy, spikes, outerRadius, innerRadius, color) {
+    let rot = Math.PI / 2 * 3;
+    let step = Math.PI / spikes;
 
-    // Nube 1
     ctx.beginPath();
-    ctx.arc(80, 150, 25, 0, Math.PI * 2);
-    ctx.arc(110, 150, 30, 0, Math.PI * 2);
-    ctx.arc(140, 150, 25, 0, Math.PI * 2);
-    ctx.fill();
+    ctx.moveTo(cx, cy - outerRadius);
 
-    // Nube 2
-    ctx.beginPath();
-    ctx.arc(350, 180, 20, 0, Math.PI * 2);
-    ctx.arc(380, 180, 25, 0, Math.PI * 2);
-    ctx.arc(410, 180, 20, 0, Math.PI * 2);
-    ctx.fill();
-}
+    for (let i = 0; i < spikes; i++) {
+        ctx.lineTo(cx + Math.cos(rot) * outerRadius,
+                   cy + Math.sin(rot) * outerRadius);
+        rot += step;
 
-/* =========================
-   TORRE
-========================= */
-
-function dibujarTorre(ctx) {
-
-    ctx.strokeStyle = "#5d4037";
-    ctx.lineWidth = 4;
-
-    // Base izquierda
-    ctx.beginPath();
-    ctx.moveTo(180, 500);
-    ctx.lineTo(230, 250);
-    ctx.stroke();
-
-    // Base derecha
-    ctx.beginPath();
-    ctx.moveTo(320, 500);
-    ctx.lineTo(270, 250);
-    ctx.stroke();
-
-    // Arco
-    ctx.beginPath();
-    ctx.arc(250, 500, 70, Math.PI, 0);
-    ctx.stroke();
-
-    // Piso medio
-    ctx.strokeRect(210, 250, 80, 20);
-
-    // Parte superior
-    ctx.beginPath();
-    ctx.moveTo(230, 250);
-    ctx.lineTo(250, 100);
-    ctx.lineTo(270, 250);
-    ctx.stroke();
-
-    // Antena
-    ctx.beginPath();
-    ctx.moveTo(250, 100);
-    ctx.lineTo(250, 60);
-    ctx.stroke();
-
-    // Luces
-    for(let i = 0; i < 10; i++) {
-        ctx.beginPath();
-        ctx.arc(240 + i*2, 90 + i*3, 3, 0, Math.PI*2);
-        ctx.fillStyle = "#ffeb3b";
-        ctx.fill();
+        ctx.lineTo(cx + Math.cos(rot) * innerRadius,
+                   cy + Math.sin(rot) * innerRadius);
+        rot += step;
     }
+
+    ctx.lineTo(cx, cy - outerRadius);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
 }
+
+/* =========================
+   DIBUJO PRINCIPAL
+========================= */
+
+function dibujarVaso() {
+    dibujarRect(120, 150, 160, 250, "#9bd3dd");
+}
+
+function dibujarLiquido() {
+    dibujarRect(130, 200, 140, 190, "#f7a8c4");
+}
+
+function dibujarCara() {
+    dibujarCirculo(170, 270, 15, "black");
+    dibujarCirculo(230, 270, 15, "black");
+
+    dibujarCirculo(170, 265, 5, "white");
+    dibujarCirculo(230, 265, 5, "white");
+
+    ctx.beginPath();
+    ctx.arc(200, 290, 10, 0, Math.PI);
+    ctx.stroke();
+}
+
+function dibujarMejillas() {
+    dibujarCirculo(150, 290, 8, "#ff8fab");
+    dibujarCirculo(250, 290, 8, "#ff8fab");
+}
+
+function dibujarBurbujas() {
+    dibujarCirculo(160, 350, 10, "white");
+    dibujarCirculo(210, 330, 8, "white");
+    dibujarCirculo(240, 360, 12, "white");
+}
+
+function dibujarCrema() {
+    ctx.beginPath();
+    ctx.arc(200, 150, 60, Math.PI, 0);
+    ctx.fillStyle = "#f9c6d3";
+    ctx.fill();
+}
+
+function dibujarPopote() {
+    ctx.beginPath();
+    ctx.moveTo(260, 120);
+    ctx.lineTo(300, 60);
+    ctx.lineWidth = 8;
+    ctx.strokeStyle = "#fcd34d";
+    ctx.stroke();
+}
+
+function dibujarDecoraciones() {
+    dibujarEstrella(200, 180, 5, 15, 7, "yellow");
+    dibujarCirculo(170, 170, 12, "red");
+}
+
+/* =========================
+   EJECUCIÓN
+========================= */
+
+dibujarVaso();
+dibujarLiquido();
+dibujarCara();
+dibujarMejillas();
+dibujarBurbujas();
+dibujarCrema();
+dibujarPopote();
+dibujarDecoraciones();
